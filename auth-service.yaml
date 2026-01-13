@@ -1,0 +1,46 @@
+services:
+  auth-service:
+    container_name: auth-service
+    environment:
+      - SERVICE_CONFIG_APP_NAME=SnackLog
+      - SERVICE_CONFIG_API_ROOT_URL=localhost
+      - SERVICE_CONFIG_SERVICE_NAME=auth-service
+      - DATABASE_CONFIG_DB_HOST=auth-db
+      - DATABASE_CONFIG_DB_PORT=5432
+      - DATABASE_CONFIG_DB_USER=auth_service
+      - DATABASE_CONFIG_DB_PASS=238121a0-3c9b-4d9a-bac1-4badeb3682ee
+      - DATABASE_CONFIG_DB_NAME=auth_service
+      - DATABASE_CONFIG_DISABLE_SSL=true
+      - JWT_SIGN_KEY=1419c899-84dc-424b-9d6d-1e7da5026f98
+      - GIN_MODE=debug
+    build: ./auth-service/
+    ports:
+      - 8080:80
+    depends_on:
+      auth-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Postgres Database Service
+  auth-db:
+    image: postgres:18
+    container_name: auth-db
+    # The credentials below are initial credentials for testing only
+    # DO NOT USE IN PRODUCTION!
+    environment:
+      - POSTGRES_USER=auth_service
+      - POSTGRES_PASSWORD=238121a0-3c9b-4d9a-bac1-4badeb3682ee
+      - POSTGRES_DB=auth_service
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/auth-service/pg/:/var/lib/postgresql/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auth_service"]
+      interval: 5s
+      timeout: 2s
+
