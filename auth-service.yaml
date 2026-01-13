@@ -14,8 +14,6 @@ services:
       - JWT_SIGN_KEY=1419c899-84dc-424b-9d6d-1e7da5026f98
       - GIN_MODE=debug
     build: ./auth-service/
-    ports:
-      - 8080:80
     depends_on:
       auth-db:
         condition: service_healthy
@@ -35,8 +33,6 @@ services:
       - POSTGRES_USER=auth_service
       - POSTGRES_PASSWORD=238121a0-3c9b-4d9a-bac1-4badeb3682ee
       - POSTGRES_DB=auth_service
-    ports:
-      - 5432:5432
     volumes:
       - ./data/auth-service/pg/:/var/lib/postgresql/
     healthcheck:
