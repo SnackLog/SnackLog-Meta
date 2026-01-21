@@ -1,3 +1,6 @@
+extra_hosts:
+    - "host.docker.internal:host-gateway"
+
 include:
   - ./auth-service.yaml
   - ./nginx.yaml
