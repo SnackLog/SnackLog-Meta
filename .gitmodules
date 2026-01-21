@@ -4,3 +4,6 @@
 [submodule "database-api-wrapper"]
 	path = database-api-wrapper
 	url = https://github.com/SnackLog/database-api-wrapper
+[submodule "recipe-service"]
+	path = recipe-service
+	url = https://github.com/SnackLog/recipe-service
