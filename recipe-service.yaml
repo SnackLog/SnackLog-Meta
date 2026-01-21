@@ -1,0 +1,46 @@
+services:
+  recipe-service:
+    container_name: recipe-service
+    environment:
+      - SERVICE_CONFIG_APP_NAME=SnackLog
+      - SERVICE_CONFIG_API_ROOT_URL=localhost
+      - SERVICE_CONFIG_SERVICE_NAME=recipe-service
+      - DATABASE_CONFIG_DB_HOST=recipe-db
+      - DATABASE_CONFIG_DB_PORT=5432
+      - DATABASE_CONFIG_DB_USER=recipe_service
+      - DATABASE_CONFIG_DB_PASS=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
+      - DATABASE_CONFIG_DB_NAME=recipe_service
+      - DATABASE_CONFIG_DISABLE_SSL=true
+      - DEBUG_BYPASS_AUTH_MIDDLEWARE=true
+      - GIN_MODE=debug
+    build: ./recipe-service/
+    ports:
+      - 8080:80
+    depends_on:
+      recipe-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Postgres Database Service
+  recipe-db:
+    image: postgres:18
+    container_name: recipe-db
+    # The credentials below are initial credentials for testing only
+    # DO NOT USE IN PRODUCTION!
+    environment:
+      - POSTGRES_USER=recipe_service
+      - POSTGRES_PASSWORD=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
+      - POSTGRES_DB=recipe_service
+    ports:
+      - 5432:5432
+    volumes:
+      - ./recipe-service/data/pg/:/var/lib/postgresql/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U recipe_service"]
+      interval: 5s
+      timeout: 2s
+
