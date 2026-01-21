@@ -1,21 +1,20 @@
 services:
-  auth-service:
-    container_name: auth-service
+  recipe-service:
+    container_name: recipe-service
     environment:
       - SERVICE_CONFIG_APP_NAME=SnackLog
       - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api
-      - SERVICE_CONFIG_SERVICE_NAME=auth-service
-      - DATABASE_CONFIG_DB_HOST=auth-db
+      - SERVICE_CONFIG_SERVICE_NAME=recipe-service
+      - DATABASE_CONFIG_DB_HOST=recipe-db
       - DATABASE_CONFIG_DB_PORT=5432
-      - DATABASE_CONFIG_DB_USER=auth_service
-      - DATABASE_CONFIG_DB_PASS=238121a0-3c9b-4d9a-bac1-4badeb3682ee
-      - DATABASE_CONFIG_DB_NAME=auth_service
+      - DATABASE_CONFIG_DB_USER=recipe_service
+      - DATABASE_CONFIG_DB_PASS=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
+      - DATABASE_CONFIG_DB_NAME=recipe_service
       - DATABASE_CONFIG_DISABLE_SSL=true
-      - JWT_SIGN_KEY=1419c899-84dc-424b-9d6d-1e7da5026f98
       - GIN_MODE=debug
-    build: ./auth-service/
+    build: ./recipe-service/
     depends_on:
-      auth-db:
+      recipe-db:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
@@ -24,19 +23,19 @@ services:
       retries: 5
 
   # Postgres Database Service
-  auth-db:
+  recipe-db:
     image: postgres:18
-    container_name: auth-db
+    container_name: recipe-db
     # The credentials below are initial credentials for testing only
     # DO NOT USE IN PRODUCTION!
     environment:
-      - POSTGRES_USER=auth_service
-      - POSTGRES_PASSWORD=238121a0-3c9b-4d9a-bac1-4badeb3682ee
-      - POSTGRES_DB=auth_service
+      - POSTGRES_USER=recipe_service
+      - POSTGRES_PASSWORD=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
+      - POSTGRES_DB=recipe_service
     volumes:
-      - ./data/auth-service/pg/:/var/lib/postgresql/
+      - ./recipe-service/data/pg/:/var/lib/postgresql/
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U auth_service"]
+      test: ["CMD-SHELL", "pg_isready -U recipe_service"]
       interval: 5s
       timeout: 2s
 

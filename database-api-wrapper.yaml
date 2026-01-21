@@ -1,0 +1,39 @@
+services:
+  database-api-wrapper:
+    container_name: database-api-wrapper
+    environment:
+      - SERVICE_CONFIG_APP_NAME=SnackLog
+      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api
+      - SERVICE_CONFIG_SERVICE_NAME=database-api-wrapper
+      - MONGO_USER=database_api_wrapper
+      - MONGO_PASS=d812d430-de21-413d-9630-47ff5a5b3daa
+      - MONGO_HOST=database-api-wrapper-mongodb
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=off
+      - GIN_MODE=debug
+    build: ./database-api-wrapper/
+    depends_on:
+      database-api-wrapper-mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  database-api-wrapper-mongodb:
+    container_name: database-api-wrapper-mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: database_api_wrapper
+      MONGO_INITDB_ROOT_PASSWORD: d812d430-de21-413d-9630-47ff5a5b3daa
+    volumes:
+      - ./database-api-wrapper/openfoodfacts-mongodbdump.gz:/openfoodfacts-mongodbdump.gz:ro
+      - ./database-api-wrapper/import_db.sh:/docker-entrypoint-initdb.d/import.sh:ro
+      - ./database-api-wrapper/data/mongo/:/data/db:rw
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --username $$MONGO_INITDB_ROOT_USERNAME --password $$MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval \"db.adminCommand('ping')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
