@@ -11,7 +11,6 @@ services:
       - DATABASE_CONFIG_DB_PASS=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
       - DATABASE_CONFIG_DB_NAME=recipe_service
       - DATABASE_CONFIG_DISABLE_SSL=true
-      - DEBUG_BYPASS_AUTH_MIDDLEWARE=true
       - GIN_MODE=debug
     build: ./recipe-service/
     depends_on:
