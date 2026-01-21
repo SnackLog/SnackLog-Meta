@@ -14,8 +14,6 @@ services:
       - DEBUG_BYPASS_AUTH_MIDDLEWARE=true
       - GIN_MODE=debug
     build: ./recipe-service/
-    ports:
-      - 8080:80
     depends_on:
       recipe-db:
         condition: service_healthy
@@ -35,8 +33,6 @@ services:
       - POSTGRES_USER=recipe_service
       - POSTGRES_PASSWORD=dda4c681-2ab3-48e0-9cf7-0484eef49d9a
       - POSTGRES_DB=recipe_service
-    ports:
-      - 5432:5432
     volumes:
       - ./recipe-service/data/pg/:/var/lib/postgresql/
     healthcheck:
