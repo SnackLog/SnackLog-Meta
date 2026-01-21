@@ -5,3 +5,4 @@ include:
   - ./auth-service.yaml
   - ./nginx.yaml
   - ./recipe-service.yaml
+  - ./database-api-wrapper.yaml
