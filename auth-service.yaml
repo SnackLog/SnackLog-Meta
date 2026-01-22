@@ -3,7 +3,7 @@ services:
     container_name: auth-service
     environment:
       - SERVICE_CONFIG_APP_NAME=SnackLog
-      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api
+      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api/v1
       - SERVICE_CONFIG_SERVICE_NAME=auth-service
       - DATABASE_CONFIG_DB_HOST=auth-db
       - DATABASE_CONFIG_DB_PORT=5432

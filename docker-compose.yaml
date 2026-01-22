@@ -6,3 +6,4 @@ include:
   - ./nginx.yaml
   - ./recipe-service.yaml
   - ./database-api-wrapper.yaml
+  - ./swagger-ui.yaml

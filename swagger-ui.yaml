@@ -1,0 +1,9 @@
+services:
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    volumes:
+      - ./recipe-service/docs/swagger.json:/usr/share/nginx/html/recipe-service.json
+      - ./auth-service/docs/swagger.json:/usr/share/nginx/html/auth-service.json
+    environment:
+      - 'URLS=[ { url: "recipe-service.json", name: "Recipe Service" }, { url: "auth-service.json", name: "Auth Service" } ]'

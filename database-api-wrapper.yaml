@@ -3,7 +3,7 @@ services:
     container_name: database-api-wrapper
     environment:
       - SERVICE_CONFIG_APP_NAME=SnackLog
-      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api
+      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api/v1
       - SERVICE_CONFIG_SERVICE_NAME=database-api-wrapper
       - MONGO_USER=database_api_wrapper
       - MONGO_PASS=d812d430-de21-413d-9630-47ff5a5b3daa
