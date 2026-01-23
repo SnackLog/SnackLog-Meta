@@ -4,7 +4,8 @@ services:
     container_name: swagger-ui
     volumes:
       - ./recipe-service/docs/swagger.json:/usr/share/nginx/html/recipe-service.json
+      - ./meal-service/docs/swagger.json:/usr/share/nginx/html/meal-service.json
       - ./auth-service/docs/swagger.json:/usr/share/nginx/html/auth-service.json
       - ./database-api-wrapper/docs/swagger.json:/usr/share/nginx/html/database-api-wrapper.json
     environment:
-      - 'URLS=[ { url: "recipe-service.json", name: "Recipe Service" }, { url: "auth-service.json", name: "Auth Service" }, { url: "database-api-wrapper.json", name: "Database API Wrapper" } ]'
+      - 'URLS=[ { url: "recipe-service.json", name: "Recipe Service" }, { url: "auth-service.json", name: "Auth Service" }, { url: "database-api-wrapper.json", name: "Database API Wrapper" }, { url: "meal-service.json", name: "Meal Service" } ]'
