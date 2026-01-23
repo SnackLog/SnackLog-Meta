@@ -1,0 +1,44 @@
+services:
+  meal-service:
+    container_name: meal-service
+    environment:
+      - SERVICE_CONFIG_APP_NAME=SnackLog
+      - SERVICE_CONFIG_API_ROOT_URL=http://host.docker.internal:8080/api/v1
+      - SERVICE_CONFIG_SERVICE_NAME=meal-service
+      - DATABASE_CONFIG_DB_HOST=meal-db
+      - DATABASE_CONFIG_DB_PORT=5432
+      - DATABASE_CONFIG_DB_USER=meal_service
+      - DATABASE_CONFIG_DB_PASS=f9746e4d-7de3-4ba3-89e5-52b90eb8a24f
+      - DATABASE_CONFIG_DB_NAME=meal_service
+      - DATABASE_CONFIG_DISABLE_SSL=true
+      - GIN_MODE=debug
+    build: .
+    ports:
+      - 8080:80
+    depends_on:
+      meal-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Postgres Database Service
+  meal-db:
+    image: postgres:18
+    container_name: meal-db
+    # The credentials below are initial credentials for testing only
+    # DO NOT USE IN PRODUCTION!
+    environment:
+      - POSTGRES_USER=meal_service
+      - POSTGRES_PASSWORD=f9746e4d-7de3-4ba3-89e5-52b90eb8a24f
+      - POSTGRES_DB=meal_service
+    ports:
+      - 5432:5432
+    volumes:
+      - ./meal-service/data/pg/:/var/lib/postgresql/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meal_service"]
+      interval: 5s
+      timeout: 2s

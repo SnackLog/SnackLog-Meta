@@ -7,3 +7,4 @@ include:
   - ./recipe-service.yaml
   - ./database-api-wrapper.yaml
   - ./swagger-ui.yaml
+  - ./meal-service.yaml
