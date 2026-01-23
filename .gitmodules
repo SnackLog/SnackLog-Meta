@@ -7,3 +7,6 @@
 [submodule "recipe-service"]
 	path = recipe-service
 	url = https://github.com/SnackLog/recipe-service
+[submodule "meal-service"]
+	path = meal-service
+	url = https://github.com/SnackLog/meal-service.git
