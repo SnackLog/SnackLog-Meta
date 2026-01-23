@@ -13,8 +13,6 @@ services:
       - DATABASE_CONFIG_DISABLE_SSL=true
       - GIN_MODE=debug
     build: ./meal-service/
-    ports:
-      - 8080:80
     depends_on:
       meal-db:
         condition: service_healthy
@@ -34,8 +32,6 @@ services:
       - POSTGRES_USER=meal_service
       - POSTGRES_PASSWORD=f9746e4d-7de3-4ba3-89e5-52b90eb8a24f
       - POSTGRES_DB=meal_service
-    ports:
-      - 5432:5432
     volumes:
       - ./meal-service/data/pg/:/var/lib/postgresql/
     healthcheck:
