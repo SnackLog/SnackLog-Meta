@@ -1,0 +1,60 @@
+{
+  "nodes": {
+    "go-license-collector": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1766588125,
+        "narHash": "sha256-oRyCWUM4ialvjZ/GxgKDs6h5F8ivmGk/ECPexRat/NA=",
+        "owner": "LightJack05",
+        "repo": "go-license-collector",
+        "rev": "e119aecb9697350b03493b434084666ad931b8a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LightJack05",
+        "repo": "go-license-collector",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1769200421,
+        "narHash": "sha256-YWbPJnIRyVfDVa8o5CJiwrWBLf/6DPL2KuatDTfxLb4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4fc12581a00d75f16f0d98a5c8f2f690716b4440",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1769200421,
+        "narHash": "sha256-YWbPJnIRyVfDVa8o5CJiwrWBLf/6DPL2KuatDTfxLb4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4fc12581a00d75f16f0d98a5c8f2f690716b4440",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "go-license-collector": "go-license-collector",
+        "nixpkgs": "nixpkgs_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
