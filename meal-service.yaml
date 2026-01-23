@@ -12,7 +12,7 @@ services:
       - DATABASE_CONFIG_DB_NAME=meal_service
       - DATABASE_CONFIG_DISABLE_SSL=true
       - GIN_MODE=debug
-    build: .
+    build: ./meal-service/
     ports:
       - 8080:80
     depends_on:
