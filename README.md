@@ -26,5 +26,12 @@ MongoDB will now begin importing the data into the mongodb database. This proces
 
 Once the import is completed, restart all containers via `podman-compose down` and `podman-compose up -d`.
 
+## Compiling and starting the project
+> [!NOTE]
+> Make sure you have imported the database beforehand!
+
+To compile the project, run `podman compose build`. This may be required after updating any of the submodule source files.
+To start the project afterwards, run `podman compose up -d`.
+
 ## Swagger documentation
 Swagger documentation is located at [http://localhost:8080/docs/](http://localhost:8080/docs/) and available once the containers are running.
